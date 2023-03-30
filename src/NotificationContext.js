@@ -1,23 +1,35 @@
 import { useContext, useReducer, createContext } from "react";
 
-const notificationContext = (state, action) => {
+const notificationReducer = (state, action) => {
     switch (action.type) {
-        case "SHOW":
-            return action.payload
+        case "SHOW": {
+            console.log('asd')
+            return 'test'
+        }
         case "HIDE":
             return null
+        default:
+            {
+                console.log('sasdasd')
+                return state
+            }
     }
 }
 
 const NotificationContext = createContext()
 
+export const useNotificationValue = () => {
+    const notificationAndDispatch = useContext(NotificationContext)
+    return notificationAndDispatch[0]
+}
+
 export const useNotificationDispatch = () => {
-    const notificationAndDispatch = useContext[NotificationContext]
+    const notificationAndDispatch = useContext(NotificationContext)
     return notificationAndDispatch[1]
 }
 
 export const NotificationContextProvider = (props) => {
-    const [notification, notificationDispatch] = useReducer(notificationContext)
+    const [notification, notificationDispatch] = useReducer(notificationReducer, null)
 
     return (
         <NotificationContext.Provider value={[notification, notificationDispatch]}>
@@ -27,4 +39,4 @@ export const NotificationContextProvider = (props) => {
     )
 }
 
-export default NotificationContextProvider
+export default NotificationContext
